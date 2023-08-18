@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +21,12 @@ public class FileProcessing {
             List<String> pathOutcomes = new ArrayList<>();
 
             for (String path : paths) {
+                path = new String(path.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
                 String[] parts = path.split("\\\\");
                 String fullPath = parts[parts.length - 1];
 
                 String[] nameAndExtension = fullPath.split("\\.");
-                String folder = parts[0];
+                String folder = parts[1];
                 String fileName = nameAndExtension[0];
                 String extension = nameAndExtension.length > 1 ? nameAndExtension[1] : "";
                 String uppercasePath = path.replaceAll("[^a-zA-Z0-9\\\\]", "").toUpperCase();
