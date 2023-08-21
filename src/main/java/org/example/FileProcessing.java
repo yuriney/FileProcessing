@@ -34,7 +34,7 @@ public class FileProcessing {
                 programaOutcomes.add(folder);
                 fileNameOutcomes.add(fileName);
                 extensionFileOutcomes.add(extension);
-                pathOutcomes.add(uppercasePath);
+                pathOutcomes.add(uppercasePath.replaceAll("\\\\","-"));
             }
 
             writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\programa.txt", programaOutcomes);
