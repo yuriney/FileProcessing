@@ -28,7 +28,7 @@ public class FileProcessing {
                 String[] nameAndExtension = fullPath.split("\\.");
                 String folder = parts[1];
                 String fileName = nameAndExtension[0];
-                String extension = nameAndExtension.length > 1 ? nameAndExtension[1] : "";
+                String extension = nameAndExtension[nameAndExtension.length-1];
                 String uppercasePath = path.replaceAll("-"," ").toUpperCase();
                 uppercasePath.replaceAll("[^a-zA-Z0-9\\\\]", "");
 
