@@ -20,6 +20,7 @@ public class FileProcessing {
             List<String> extensionFileOutcomes = new ArrayList<>();
             List<String> pathOutcomes = new ArrayList<>();
             List<String> projectOutcomes = new ArrayList<>();
+            List<String> title = new ArrayList<>();
 
             for (String path : paths) {
                 path = new String(path.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
@@ -29,6 +30,11 @@ public class FileProcessing {
                 String folder = parts[1];
                 String fileName = nameAndExtension[0];
                 String extension = nameAndExtension[nameAndExtension.length-1];
+
+                String titleGatherer = path.replaceAll("\\\\","-");
+                titleGatherer = titleGatherer.replaceAll("\\.(.*)$","");
+                titleGatherer = titleGatherer.replaceAll("\\\\","-");
+
                 String uppercasePath = path.replaceAll("-"," ").toUpperCase();
                 uppercasePath.replaceAll("[^a-zA-Z0-9\\\\]", "");
 
@@ -49,6 +55,7 @@ public class FileProcessing {
                 programaOutcomes.add(folder);
                 fileNameOutcomes.add(fileName);
                 extensionFileOutcomes.add(extension);
+                title.add(titleGatherer);
                 pathOutcomes.add(uppercasePath.replaceAll("\\\\"," "));
             }
 
@@ -57,6 +64,8 @@ public class FileProcessing {
             writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\extension_file.txt", extensionFileOutcomes);
             writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\path.txt", pathOutcomes);
             writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\project.txt", projectOutcomes);
+            writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\title.txt", title);
+
             System.out.println("Outcome files generated successfully.");
         } catch (IOException e) {
             e.printStackTrace();
