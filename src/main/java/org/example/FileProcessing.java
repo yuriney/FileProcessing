@@ -10,11 +10,14 @@ import java.util.List;
 
 public class FileProcessing {
     public static void main(String[] args) {
+        // Define the input file path
         String inputFile = "C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\am_edicao.txt";
 
         try {
+            // Read paths from the input file
             List<String> paths = readPathsFromFile(inputFile);
 
+            // Initialize lists to store various outcomes
             List<String> programaOutcomes = new ArrayList<>();
             List<String> fileNameOutcomes = new ArrayList<>();
             List<String> extensionFileOutcomes = new ArrayList<>();
@@ -23,42 +26,47 @@ public class FileProcessing {
             List<String> title = new ArrayList<>();
 
             for (String path : paths) {
+                // Ensure proper character encoding
                 path = new String(path.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+
+                // Split the path into parts using backslashes
                 String[] parts = path.split("\\\\");
                 String fullPath = parts[parts.length - 1];
+
+                // Split the full path into filename and extension
                 String[] nameAndExtension = fullPath.split("\\.");
+
+                // Extract folder, filename, and extension
                 String folder = parts[1];
                 String fileName = nameAndExtension[0];
-                String extension = nameAndExtension[nameAndExtension.length-1];
+                String extension = nameAndExtension[nameAndExtension.length - 1];
 
-                String titleGatherer = path.replaceAll("\\\\","-");
-                titleGatherer = titleGatherer.replaceAll("\\.(.*)$","");
-                titleGatherer = titleGatherer.replaceAll("\\\\","-");
+                // Gather the title by replacing backslashes with hyphens and removing file extensions
+                String titleGatherer = path.replaceAll("\\\\", "-");
+                titleGatherer = titleGatherer.replaceAll("\\.(.*)$", "");
+                titleGatherer = titleGatherer.replaceAll("\\\\", "-");
 
-                String uppercasePath = path.replaceAll("-"," ").toUpperCase();
+                // Replace hyphens with spaces and convert to uppercase
+                String uppercasePath = path.replaceAll("-", " ").toUpperCase();
                 uppercasePath.replaceAll("[^a-zA-Z0-9\\\\]", "");
 
-                int lastBackslashIndex = uppercasePath.lastIndexOf("\\");
-                if (lastBackslashIndex >= 0) {
-                    uppercasePath = uppercasePath.substring(0, lastBackslashIndex);
-                }
-
-
-                for(int i =0 ; i < parts.length; i++){
-                    if(parts[i].equals("BRUTO") && i > 1){
-                        String projectTemp = parts[i-1];
-                        projectOutcomes.add(projectTemp) ;
+                // Extract the project name based on the "BRUTO" directory
+                for (int i = 0; i < parts.length; i++) {
+                    if (parts[i].equals("BRUTO") && i > 1) {
+                        String projectTemp = parts[i - 1];
+                        projectOutcomes.add(projectTemp);
                     }
-
                 }
 
+                // Add the outcomes to their respective lists
                 programaOutcomes.add(folder);
                 fileNameOutcomes.add(fileName);
                 extensionFileOutcomes.add(extension);
                 title.add(titleGatherer);
-                pathOutcomes.add(uppercasePath.replaceAll("\\\\"," "));
+                pathOutcomes.add(uppercasePath.replaceAll("\\\\", " "));
             }
 
+            // Write the outcomes to separate output files
             writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\programa.txt", programaOutcomes);
             writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\file_name.txt", fileNameOutcomes);
             writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\extension_file.txt", extensionFileOutcomes);
@@ -72,6 +80,7 @@ public class FileProcessing {
         }
     }
 
+    // Function to read paths from a file
     private static List<String> readPathsFromFile(String filePath) throws IOException {
         List<String> paths = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -85,6 +94,7 @@ public class FileProcessing {
         return paths;
     }
 
+    // Function to write outcomes to a file
     private static void writeOutcomeToFile(String filePath, List<String> outcomes) throws IOException {
         FileWriter writer = new FileWriter(filePath);
         for (String outcome : outcomes) {
