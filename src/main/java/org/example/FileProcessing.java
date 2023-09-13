@@ -11,7 +11,8 @@ import java.util.List;
 public class FileProcessing {
     public static void main(String[] args) {
         // Define the input file path
-        String inputFile = "C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\am_edicao.txt";
+        final String baseWorkPath = "C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\";
+        String inputFile = new String(baseWorkPath).concat("am_edicao.txt");
 
         try {
             // Read paths from the input file
@@ -67,12 +68,12 @@ public class FileProcessing {
             }
 
             // Write the outcomes to separate output files
-            writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\programa.txt", programaOutcomes);
-            writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\file_name.txt", fileNameOutcomes);
-            writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\extension_file.txt", extensionFileOutcomes);
-            writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\path.txt", pathOutcomes);
-            writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\project.txt", projectOutcomes);
-            writeOutcomeToFile("C:\\Users\\icabi\\Documents\\MP - DOCS\\Automações e Scripts\\Test\\Splitting\\title.txt", title);
+            writeOutcomeToFile(new String().concat("programa.txt"), programaOutcomes);
+            writeOutcomeToFile(new String().concat("file_name.txt"), fileNameOutcomes);
+            writeOutcomeToFile(new String().concat("extension_file.txt"), extensionFileOutcomes);
+            writeOutcomeToFile(new String().concat("path.txt"), pathOutcomes);
+            writeOutcomeToFile(new String().concat("project.txt"), projectOutcomes);
+            writeOutcomeToFile(new String().concat("title.txt"), title);
 
             System.out.println("Outcome files generated successfully.");
         } catch (IOException e) {
